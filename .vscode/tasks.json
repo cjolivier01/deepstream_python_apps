@@ -1,158 +1,22 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    //
-    // ${workspaceRoot} - the path of the folder opened in VS Code
-    // ${workspaceFolderBasename} - the name of the folder opened in VS Code without any slashes (/)
-    // ${file} - the current opened file
-    // ${relativeFile} - the current opened file relative to workspaceRoot
-    // ${relativeFileDirname} - the current opened file's dirname relative to workspaceRoot
-    // ${fileBasename} - the current opened file's basename
-    // ${fileBasenameNoExtension} - the current opened file's basename with no file extension
-    // ${fileDirname} - the current opened file's dirname
-    // ${fileExtname} - the current opened file's extension
-    // ${cwd} - the task runner's current working directory on startup
-    // ${lineNumber} - the current selected line number in the active file
-    // ${selectedText} - the current selected text in the active file
-    // ${execPath} - the path to the running VS Code executable
-    // ${defaultBuildTask} - the name of the default build task
-    //
-    "version": "2.0.0",
-    "tasks": [
-    {
-      "label": "build hockeymom (current config)",
-      "type": "shell",
-      "command": "make",
-      "args": [
-        "-j", "60",
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "options": {
-        "cwd": "${workspaceRoot}/build/temp.linux-x86_64-cpython-311/",
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "python setup.py develop DEBUG",
-      "type": "shell",
-      "command": "${env:HOME}/mambaforge/envs/ubuntu/bin/python",
-      "args": [
-        "setup.py",
-        "develop",
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "options": {
-        "cwd": "${workspaceRoot}",
-        "env": {
-          "DEBUG": "1",
-          "RELEASE": "0",
-          "PROFILE": "0",
-          // "PATH": "/home/colivier-local/.conda/envs/ubuntu/bin",
-          // "CONDA_DEFAULT_ENV": "ubuntu",
-          // "CONDA_PREFIX": "${env:HOME}/.conda/envs/ubuntu"
-        }
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "python setup.py develop RELEASE",
-      "type": "shell",
-      "command": "${env:HOME}/mambaforge/envs/ubuntu/bin/python",
-      "args": [
-        "setup.py",
-        "develop",
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "options": {
-        "cwd": "${workspaceRoot}",
-        "env": {
-          "DEBUG": "0",
-          "RELEASE": "1",
-          "PROFILE": "0",
-        }
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "python setup.py develop PROFILE",
-      "type": "shell",
-      "command": "${env:HOME}/mambaforge/envs/ubuntu/bin/python",
-      "args": [
-        "setup.py",
-        "develop",
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "options": {
-        "cwd": "${workspaceRoot}",
-        "env": {
-          "DEBUG": "0",
-          "RELEASE": "0",
-          "PROFILE": "1",
-        }
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": true
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "python setup.py CLEAN",
-      "type": "shell",
-      "command": "${env:HOME}/mambaforge/envs/ubuntu/bin/python",
-      "args": [
-        "setup.py",
-        "clean",
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "options": {
-        "cwd": "${workspaceRoot}",
-        "env": {
-          "DEBUG": "0",
-        }
-      },
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared",
-        "showReuseMessage": true,
-        "clear": false
-      },
-      "problemMatcher": []
-    },
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "Meson: Build all targets",
+          "type": "shell",
+          "command": "meson compile -C builddir",
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          },
+          "problemMatcher": [
+              "$gcc"
+          ],
+          "presentation": {
+              "reveal": "always",
+              "panel": "shared",
+              "clear": true
+          }
+      }
   ]
 }

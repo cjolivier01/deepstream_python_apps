@@ -1,0 +1,4 @@
+/build
+pyds.egg-info
+*.so
+/dist

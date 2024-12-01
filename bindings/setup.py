@@ -20,6 +20,7 @@ from pathlib import Path
 from setuptools import Extension, setup
 from setuptools.command.build_ext import build_ext
 
+
 # A CMakeExtension needs a sourcedir instead of a file list.
 # The name must be the _single_ output extension from the CMake build.
 # If you need multiple extensions, see scikit-build.
@@ -42,6 +43,12 @@ class CMakeBuild(build_ext):
         cmake_args = [
             f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}{os.sep}"
         ]
+
+        if int(os.environ.get("DEBUG", "0")):
+            cmake_args.append("-DCMAKE_BUILD_TYPE=Debug")
+        else:
+            cmake_args.append("-DCMAKE_BUILD_TYPE=rELEASE")
+
         build_args = []
         # Adding CMake arguments set as environment variable
         # (needed to build for SBSA)

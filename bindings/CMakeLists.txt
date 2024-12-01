@@ -15,6 +15,8 @@
 
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
+set(CMAKE_VERBOSE_MAKEFILE 1)
+
 # Setting values not set by user
 function(check_variable_set variable_name default_value)
         if (NOT DEFINED ${variable_name})
@@ -23,13 +25,16 @@ function(check_variable_set variable_name default_value)
 endfunction()
 
 check_variable_set(PYTHON_MAJOR_VERSION 3)
-check_variable_set(PYTHON_MINOR_VERSION 10)
+check_variable_set(PYTHON_MINOR_VERSION 11)
 
 check_variable_set(DS_PATH "/opt/nvidia/deepstream/deepstream")
 if (DEFINED IS_SBSA)
 	message("IS_SBSA is set. Enabling definitions for ARM_SBSA")
 	add_compile_definitions(IS_SBSA)
 endif()
+
+# Find Python 3
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
 # Checking values are allowed
 macro(check_variable_allowed var_name var_list)
@@ -39,7 +44,7 @@ macro(check_variable_allowed var_name var_list)
 endmacro()
 set(PYTHON_MAJVERS_ALLOWED 3)
 check_variable_allowed(PYTHON_MAJOR_VERSION PYTHON_MAJVERS_ALLOWED)
-set(PYTHON_MINVERS_ALLOWED 10)
+set(PYTHON_MINVERS_ALLOWED 11)
 check_variable_allowed(PYTHON_MINOR_VERSION PYTHON_MINVERS_ALLOWED)
 
 # Setting C++ values
@@ -51,10 +56,14 @@ set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
 # Setting python build versions
 set(PYTHON_VERSION ${PYTHON_MAJOR_VERSION}.${PYTHON_MINOR_VERSION})
 set(PIP_WHEEL pyds-1.1.11-py3-none-${PIP_PLATFORM}.whl)
+message(STATUS " PYTHON_VERSION=${PYTHON_VERSION}")
 
 # Describing pyds build
 project(pyds DESCRIPTION "Python bindings for Deepstream")
 add_compile_options(-Wall -Wextra -pedantic -O3)
+
+include_directories(${Python3_INCLUDE_DIRS})
+
 
 include_directories(
         include/
@@ -63,7 +72,6 @@ include_directories(
         include/nvds
         3rdparty/pybind11/include/pybind11/
         3rdparty/pybind11/include/
-        /usr/include/python${PYTHON_VERSION}
         /usr/include/gstreamer-1.0
         /usr/include/glib-2.0
         /usr/lib/aarch64-linux-gnu/glib-2.0/include/
@@ -76,12 +84,14 @@ add_library(pyds SHARED src/pyds.cpp src/utils.cpp src/bindanalyticsmeta.cpp
             src/bindnvdsmeta.cpp src/bindnvosd.cpp src/bindopticalflow.cpp
             src/bindschema.cpp src/bindtrackermeta.cpp src/custom_binding/bindcustom.cpp)
 
+message(STATUS " Python3_SOABI=${Python3_SOABI}")
+
+target_link_libraries(pyds pthread dl ${Python3_LIBRARIES} gstreamer-1.0 glib-2.0)
+
+# Target python module naming
 set_target_properties(pyds PROPERTIES PREFIX "")
-set_target_properties(pyds PROPERTIES OUTPUT_NAME "pyds")
-
-set(PYTHON_LIB python${PYTHON_VERSION})
-
-target_link_libraries(pyds pthread dl ${PYTHON_LIB} gstreamer-1.0 glib-2.0)
+set_target_properties(pyds PROPERTIES OUTPUT_NAME "pyds.${Python3_SOABI}")
+set_target_properties(pyds PROPERTIES SUFFIX "")
 
 # Checking deepstream shared libraries and linking them
 function(add_ds_lib libname)
