@@ -1,3 +1,31 @@
+/*
+${workspaceFolder} - The path of the folder opened in VS Code. For multi-root workspaces, this is the path of the workspace folder that contains the configuration file.
+
+${workspaceFolderBasename} - The name of the folder opened in VS Code without any slashes (/).
+
+${file} - The current opened file.
+
+${relativeFile} - The current opened file relative to workspaceFolder.
+
+${fileBasename} - The current opened file's basename.
+
+${fileBasenameNoExtension} - The current opened file's basename with no file extension.
+
+${fileDirname} - The current opened file's dirname.
+
+${fileExtname} - The current opened file's extension.
+
+${cwd} - The task runner's current working directory on startup.
+
+${lineNumber} - The current selected line number in the active file.
+
+${selectedText} - The current selected text in the active file.
+
+${execPath} - The path to the running VS Code executable.
+
+${defaultBuildTask} - The name of the default build task.
+*/
+
 {
   // Use IntelliSense to learn about possible attributes.
   // Hover to view descriptions of existing attributes.
@@ -16,17 +44,40 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${file}",
-      "args": [],
+      "args": [
+        "/mnt/ripper-data/Videos/ev-blackstars-ps/stiched.mp4",
+      ],
       "console": "integratedTerminal",
       "justMyCode": false,
-      "cwd": "${workspaceFolder}",
+      "cwd": "${fileDirname}",
       "env": {
         "PYTHONPATH": "${workspaceFolder}/apps",
-        "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
-        "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
+        // "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
+        // "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
         // "GST_DEBUG": "4",
       }
     },
+    {
+      "name": "(LLDB) Current Python File",
+      "type": "lldb",
+      "request": "launch",
+      "linux": {
+        "envFile": "${workspaceFolder}/vscode.env",
+      },
+      "cwd": "${fileDirname}",
+      "program": "/home/colivier/mambaforge/envs/ubuntu/bin/python",
+      "args": [
+        "${file}",
+        "file:///mnt/ripper-data/Videos/ev-blackstars-ps/stiched.mp4",
+      ],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/apps",
+        // "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
+        // "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
+        // "GST_DEBUG": "4",
+      },
+      // "preLaunchTask": "Meson: Build all targets",
+    }
     {
       //
       // deepstream_nvdsanalytics.py
@@ -40,11 +91,11 @@
       ],
       "console": "integratedTerminal",
       "justMyCode": false,
-      "cwd": "${workspaceFolder}/apps/deepstream-nvdsanalytics/",
+      "cwd": "${fileDirname}",
       "env": {
         "PYTHONPATH": "${workspaceFolder}/apps",
-        "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
-        "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
+        // "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
+        // "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
         // "GST_DEBUG": "4",
       }
     },
@@ -53,9 +104,9 @@
       "type": "lldb",
       "request": "launch",
       "linux": {
-        // "envFile": "${workspaceFolder}/${config:mesonbuild.buildFolder}/meson-vscode.env",
+        "envFile": "${workspaceFolder}/vscode.env",
       },
-      "cwd": "${workspaceFolder}/",
+      "cwd": "${fileDirname}",
       "program": "/home/colivier/mambaforge/envs/ubuntu/bin/python",
       "args": [
         "${workspaceFolder}/apps/deepstream-nvdsanalytics/deepstream_nvdsanalytics.py",
@@ -63,8 +114,8 @@
       ],
       "env": {
         "PYTHONPATH": "${workspaceFolder}/apps",
-        "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
-        "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
+        // "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
+        // "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
         // "GST_DEBUG": "4",
       },
       // "preLaunchTask": "Meson: Build all targets",
