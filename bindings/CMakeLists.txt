@@ -16,6 +16,7 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 set(CMAKE_VERBOSE_MAKEFILE 1)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Setting values not set by user
 function(check_variable_set variable_name default_value)
