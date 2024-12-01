@@ -24,6 +24,7 @@
         "PYTHONPATH": "${workspaceFolder}/apps",
         "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
         "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
+        // "GST_DEBUG": "4",
       }
     },
     {
@@ -44,23 +45,23 @@
         "PYTHONPATH": "${workspaceFolder}/apps",
         "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
         "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
+        // "GST_DEBUG": "4",
       }
     },
     {
-      "name": "(LLDB) deepstream-app",
+      "name": "(LLDB) deepstream_nvdsanalytics.py",
       "type": "lldb",
       "request": "launch",
       "linux": {
         // "envFile": "${workspaceFolder}/${config:mesonbuild.buildFolder}/meson-vscode.env",
       },
       "cwd": "${workspaceFolder}/",
-      // "program": "/usr/bin/deepstream-app",
-      "program": "/home/colivier/src/hmdeepstream/deepstream/sources/apps/sample_apps/deepstream-app/deepstream-app",
+      "program": "/home/colivier/mambaforge/envs/ubuntu/bin/python",
       "args": [
-        "-c", "${workspaceFolder}/ds_hockey_app_config.yaml"
+        "${workspaceFolder}/apps/deepstream-nvdsanalytics/deepstream_nvdsanalytics.py",
+        "file:///mnt/ripper-data/Videos/ev-blackstars-ps/stiched.mp4",
       ],
       "env": {
-        //"GST_DEBUG": "4",
         "PYTHONPATH": "${workspaceFolder}/apps",
         "LD_LIBRARY_PATH": "/home/colivier/mambaforge/envs/ubuntu/lib:/home/colivier/mambaforge/envs/ubuntu/lib/x86_64-linux-gnu:/opt/nvidia/deepstream/deepstream/lib",
         "GST_PLUGIN_PATH": "/home/colivier/src/hmdeepstream/deepstream/gst-plugins:/opt/nvidia/deepstream/deepstream/lib/gst-plugins",
